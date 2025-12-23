@@ -7,8 +7,11 @@ import logo from "../assets/logo.png";
 import { api } from "../lib/api"; // tvoja axios instanca
 
 // Import Swiper stilova
+// @ts-ignore
 import "swiper/css";
+// @ts-ignore
 import "swiper/css/navigation";
+// @ts-ignore
 import "swiper/css/pagination";
 
 import type { GalleryPost } from "../types/Gallery";

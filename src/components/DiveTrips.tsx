@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 // Swiper Importi
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+// @ts-ignore
 import "swiper/css";
+// @ts-ignore
 import "swiper/css/navigation";
-
-const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/";
 
 export default function DiveTrips() {
   const navigate = useNavigate();

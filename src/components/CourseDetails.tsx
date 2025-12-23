@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import type { Program } from '../types/Program';
-import { Calendar, Clock, Award, ArrowLeft, CheckCircle2, GraduationCap, Info, Coins } from 'lucide-react';
+import { Calendar, Clock, Award, ArrowLeft, GraduationCap, Info } from 'lucide-react';
 
 export default function CourseDetails() {
   const { id } = useParams();

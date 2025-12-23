@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../lib/api"; // Osiguraj da je putanja tačna
 
 // Swiper stilovi
+// @ts-ignore
 import "swiper/css";
+// @ts-ignore
 import "swiper/css/navigation";
 
 import type { Program } from "../types/Program";

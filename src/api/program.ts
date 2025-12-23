@@ -24,10 +24,16 @@ export async function fetchPrograms(): Promise<Program[]> {
 
   const json: StrapiProgramsResponse = await res.json();
 
-  return json.data.map((item) => ({
-    id: item.id,
-    title: item.attributes.title,
-    description: item.attributes.description,
-    icon: item.attributes.icon,
-  }));
+return json.data.map((item: any) => ({
+  id: item.id,
+  documentId: item.documentId || "",
+  title: item.title || "",
+  description: item.description || "",
+  longDescription: item.longDescription || "",
+  startDate: item.startDate || "",
+  duration: item.duration || "",
+  level: item.level || "",
+  price: item.price || "",
+  requirements: item.requirements || "",
+}));
 }

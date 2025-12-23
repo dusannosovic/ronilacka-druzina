@@ -1,4 +1,4 @@
-import type { GalleryImage } from "../types/Gallery";
+import type { GalleryPost } from "../types/Gallery";
 
 type StrapiImageAttributes = {
   url: string;
@@ -25,7 +25,7 @@ type StrapiGalleryResponse = {
 
 const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/api/";
 
-export async function fetchGallery(): Promise<GalleryImage[]> {
+export async function fetchGallery(): Promise<GalleryPost[]> {
   const res = await fetch(
     `${STRAPI_URL}/api/galleries?populate=image`
   );
@@ -36,9 +36,20 @@ export async function fetchGallery(): Promise<GalleryImage[]> {
 
   const json: StrapiGalleryResponse = await res.json();
 
-  return json.data.map(item => ({
-    id: item.id,
-    url: STRAPI_URL + item.attributes.image.data.attributes.url,
-    alt: item.attributes.image.data.attributes.alternativeText,
-  }));
+return json.data.map((item: any) => ({
+  id: item.id,
+  documentId: item.documentId || "",
+  location: item.location || "Nepoznata lokacija",
+  caption: item.caption || "",
+  
+  // Mapiramo niz slika jer interfejs kaže da je "images" niz (array)
+  images: (item.images || []).map((img: any) => ({
+    id: img.id,
+    // Provera da li je URL već potpun (sa https://) ili je relativan (/uploads/...)
+    url: img.url?.startsWith('http') 
+      ? img.url 
+      : `https://mindful-apparel-46444cf289.strapiapp.com${img.url}`,
+    alternativeText: img.alternativeText || ""
+  }))
+}));
 }
