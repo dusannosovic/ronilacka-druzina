@@ -10,7 +10,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/";
 
 export default function DiveTrips() {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ export default function DiveTrips() {
             const { title, difficulty, date, description, featuredImage, duration, documentId } = trip;
 
             const imageUrl = featuredImage?.url
-              ? `${STRAPI_URL}${featuredImage.url}`
+              ? `${featuredImage.url}`
               : "https://via.placeholder.com/800x600?text=Ronjenje";
 
             const formattedDate = date 

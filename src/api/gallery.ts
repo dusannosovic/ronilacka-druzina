@@ -23,7 +23,7 @@ type StrapiGalleryResponse = {
   data: StrapiGalleryItem[];
 };
 
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/api/";
 
 export async function fetchGallery(): Promise<GalleryImage[]> {
   const res = await fetch(

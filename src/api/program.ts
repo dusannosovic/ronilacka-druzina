@@ -16,7 +16,7 @@ type StrapiProgramsResponse = {
 };
 
 export async function fetchPrograms(): Promise<Program[]> {
-  const res = await fetch("http://localhost:1337/api");
+  const res = await fetch("https://mindful-apparel-46444cf289.strapiapp.com/api/");
 
   if (!res.ok) {
     throw new Error("Failed to fetch programs");

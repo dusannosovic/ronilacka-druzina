@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:1337/api", 
+  baseURL: "https://mindful-apparel-46444cf289.strapiapp.com/api/", 
 });

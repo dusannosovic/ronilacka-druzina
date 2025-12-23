@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 
 import type { GalleryPost } from "../types/Gallery";
 
-const STRAPI_URL = "http://localhost:1337";
+const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/api/";
 
 export default function Gallery() {
   const [posts, setPosts] = useState<GalleryPost[]>([]);
