@@ -12,7 +12,7 @@ function Stat({ label, value, icon }: { label: string; value: string; icon: stri
 
 export default function About() {
   return (
-    <section id="o-nama" className="w-full bg-white py-32 px-6 md:px-12 lg:px-24">
+    <section id="o-klubu" className="w-full bg-white py-24 px-6 md:px-12 lg:px-24">
       <div className="w-full flex flex-col items-center text-center max-w-4xl mx-auto">
         
         {/* MALI LABEL IZNAD NASLOVA */}

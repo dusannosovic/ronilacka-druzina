@@ -15,8 +15,10 @@ type StrapiProgramsResponse = {
   data: StrapiProgramItem[];
 };
 
+const STRAPI_URL = import.meta.env.VITE_CMS_URL;
+
 export async function fetchPrograms(): Promise<Program[]> {
-  const res = await fetch("https://mindful-apparel-46444cf289.strapiapp.com/api/");
+  const res = await fetch(`${STRAPI_URL}/api/programs`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch programs");

@@ -16,7 +16,7 @@ import "swiper/css/pagination";
 
 import type { GalleryPost } from "../types/Gallery";
 
-const STRAPI_URL = "https://mindful-apparel-46444cf289.strapiapp.com/api/";
+const STRAPI_URL = import.meta.env.VITE_CMS_URL || "http://localhost:1337";
 
 export default function Gallery() {
   const [posts, setPosts] = useState<GalleryPost[]>([]);
@@ -35,7 +35,7 @@ export default function Gallery() {
   if (loading) return <div className="py-20 text-center animate-pulse uppercase font-black text-ocean">Učitavanje galerije...</div>;
 
   return (
-    <section id="galerija" className="w-full py-24 bg-ocean-light px-6 md:px-12 lg:px-24">
+    <section id="galerija" className="w-full py-10 bg-ocean-light px-6 md:px-12 lg:px-24">
       <div className="w-full relative">
         
         {/* HEADER SEKCIJE */}
@@ -105,15 +105,25 @@ export default function Gallery() {
                     className="h-full w-full inner-swiper"
                   >
                     {/* Proveravamo da li images postoji i mapiramo ih */}
-                    {post.images?.map((img) => (
-                      <SwiperSlide key={img.id}>
-                        <img 
-                          src={`${img.url}`} 
-                          alt={img.alternativeText || "Diving Gallery"} 
-                          className="w-full h-full object-cover" 
-                        />
-                      </SwiperSlide>
-                    ))}
+{/* UNUTRAŠNJI SLIDER */}
+{post.images?.map((img) => {
+  // Proveravamo da li je URL relativan ili apsolutan
+  const imagePath = img.url.startsWith("http") 
+    ? img.url 
+    : `${STRAPI_URL}${img.url}`;
+
+  return (
+    <SwiperSlide key={img.id}>
+      <img 
+        src={imagePath} 
+        alt={img.alternativeText || "Diving Gallery"} 
+        className="w-full h-full object-cover" 
+        // DODAJ OVO ZA DEBUG:
+        onError={(e) => console.log("Slika nije učitana na putanji:", imagePath)}
+      />
+    </SwiperSlide>
+  );
+})}
                   </Swiper>
 
                   {/* Tvoj stil za strelice ostaje isti kao pre */}

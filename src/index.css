@@ -28,3 +28,8 @@ body {
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+
+html {
+  /* Visina tvog Headera (npr. 80px). Ovo sprečava da Header prekrije naslov sekcije */
+  scroll-padding-top: 5rem; 
+}

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const STRAPI_URL = import.meta.env.VITE_CMS_URL;
+
 export const api = axios.create({
-  baseURL: "https://mindful-apparel-46444cf289.strapiapp.com/api/", 
+  baseURL: `${STRAPI_URL}/api/`, 
 });

@@ -44,7 +44,7 @@ export default function Programs() {
   }
 
   return (
-    <section id="programi" className="w-full bg-white py-24 px-6 md:px-12 lg:px-24">
+    <section id="kursevi" className="w-full bg-white py-4 px-6 md:px-12 lg:px-24">
       <div className="w-full relative">
         
         {/* HEADER SEKCIJE */}
@@ -125,10 +125,10 @@ export default function Programs() {
 
                 <button 
                   onClick={() => {
-                    navigate(`/program/${p.documentId}`);
+                    navigate(`/program/${p.documentId}`, { state: { programData: p } }); // Šaljemo ceo objekat
                     window.scrollTo(0, 0);
                   }}
-                  className="w-full bg-white text-ocean border-2 border-ocean py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] group-hover:bg-ocean group-hover:text-white transition-all duration-300"
+                className="w-full bg-white text-ocean border-2 border-ocean py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] group-hover:bg-ocean group-hover:text-white transition-all duration-300"
                 >
                   Detalji Kursa
                 </button>

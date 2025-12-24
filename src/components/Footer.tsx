@@ -19,12 +19,12 @@ export default function Footer() {
 
           {/* LINKS */}
           <div>
-            <h4 className="font-semibold mb-4">Club</h4>
+            <h4 className="font-semibold mb-4">Klub</h4>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="#programi" className="hover:text-white">Programi</a></li>
-              <li><a href="#zaroni" className="hover:text-white">Putovanja</a></li>
+              <li><a href="#o-klubu" className="hover:text-white">O nama</a></li>
+              <li><a href="#kursevi" className="hover:text-white">Kursevi</a></li>
+              <li><a href="#zaroni" className="hover:text-white">Zaroni</a></li>
               <li><a href="#galerija" className="hover:text-white">Galerija</a></li>
-              <li><a href="#o nama" className="hover:text-white">O nama</a></li>
             </ul>
           </div>
 
@@ -32,7 +32,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>Email: info@rdbdiving.com</li>
+              <li>Email: ronilackadruzina@gmail.com</li>
               <li>Phone: +381 60 123 4567</li>
               <li>Serbia / Belgrade</li>
             </ul>

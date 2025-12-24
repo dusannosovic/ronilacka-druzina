@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        'desktop': '1400px', // Naša nova granica za meni
+      },
       colors: {
         ocean: "#0B2C5F",        // Tamna mornarska sa slike
         "ocean-light": "#F2F8FC", // Svetlo plava pozadina sajta

@@ -12,6 +12,8 @@ import "swiper/css";
 // @ts-ignore
 import "swiper/css/navigation";
 
+const STRAPI_URL = import.meta.env.VITE_CMS_URL || "http://localhost:1337";
+
 export default function DiveTrips() {
   const navigate = useNavigate();
   const [trips, setTrips] = useState<DiveTrip[]>([]);
@@ -71,12 +73,15 @@ export default function DiveTrips() {
           }}
           className="!pb-10"
         >
-          {trips.map((trip) => {
-            const { title, difficulty, date, description, featuredImage, duration, documentId } = trip;
+{trips.map((trip) => {
+  const { title, difficulty, date, description, featuredImage, duration, documentId } = trip;
 
-            const imageUrl = featuredImage?.url
-              ? `${featuredImage.url}`
-              : "https://via.placeholder.com/800x600?text=Ronjenje";
+  // POPRAVLJENA LOGIKA ZA SLIKU:
+  const imageUrl = featuredImage?.url
+    ? (featuredImage.url.startsWith("http") 
+        ? featuredImage.url 
+        : `${STRAPI_URL}${featuredImage.url}`)
+    : "https://via.placeholder.com/800x600?text=Ronjenje";
 
             const formattedDate = date 
               ? new Date(date).toLocaleString('sr-RS', {
@@ -133,16 +138,16 @@ export default function DiveTrips() {
                         <span className="text-ocean font-bold text-sm uppercase tracking-tight">{formattedDate}</span>
                       </div>
                     </div>
-
                     <button 
-                      onClick={() => {
-                        navigate(`/rezervacija/${documentId}`);
-                        window.scrollTo(0, 0);
-                      }}
-                      className="w-full bg-[#0B2C5F] text-white py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] hover:bg-aqua hover:text-ocean transition-all duration-300 shadow-lg"
-                    >
-                      Prijavi se
-                    </button>
+  onClick={() => {
+    // Šaljemo ceo 'trip' objekat kao programData parametar
+    navigate(`/rezervacija/${trip.documentId}`, { state: { tripData: trip } });
+    window.scrollTo(0, 0);
+  }}
+  className="w-full bg-[#0B2C5F] text-white py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] hover:bg-aqua hover:text-ocean transition-all duration-300 shadow-lg"
+>
+  Prijavi se
+</button>
                   </div>
                 </div>
               </SwiperSlide>
