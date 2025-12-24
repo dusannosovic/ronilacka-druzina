@@ -48,7 +48,7 @@ return json.data.map((item: any) => ({
     // Provera da li je URL već potpun (sa https://) ili je relativan (/uploads/...)
     url: img.url?.startsWith('http') 
       ? img.url 
-      : `https://mindful-apparel-46444cf289.strapiapp.com${img.url}`,
+      : `${img.url}`,
     alternativeText: img.alternativeText || ""
   }))
 }));
