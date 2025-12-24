@@ -108,7 +108,7 @@ export default function Gallery() {
                     {post.images?.map((img) => (
                       <SwiperSlide key={img.id}>
                         <img 
-                          src={`${STRAPI_URL}${img.url}`} 
+                          src={`${img.url}`} 
                           alt={img.alternativeText || "Diving Gallery"} 
                           className="w-full h-full object-cover" 
                         />
