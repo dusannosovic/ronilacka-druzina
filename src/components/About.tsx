@@ -29,7 +29,7 @@ export default function About() {
 
         {/* OPIS - Veći i elegantniji font */}
         <p className="text-xl md:text-2xl text-gray-500 leading-relaxed font-light mb-16 italic">
-          "Osnovana 2024. godine, naša družina spaja strast, bezbednost i avanturu. 
+          "Osnovana 2025. godine, naša družina spaja strast, bezbednost i avanturu. 
           Od potpunih početnika do iskusnih ronilaca, zajedno istražujemo 
           čuda podvodnog sveta."
         </p>
@@ -38,7 +38,7 @@ export default function About() {
         <div className="flex flex-wrap justify-center gap-8 md:gap-12">
           <Stat label="Godina iskustva" value="10+" icon="📅" />
           <Stat label="Uspešnih zarona" value="200+" icon="🤿" />
-          <Stat label="Sertifikovanih" value="100%" icon="🛡️" />
+          <Stat label="Incidenata" value="0" icon="🛡️" />
         </div>
 
         {/* DEKORATIVNI ELEMENT NA DNU (Opciono) */}

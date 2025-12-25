@@ -131,17 +131,7 @@ export default function Contact() {
               </div>
               <div>
                 <h4 className="font-bold text-ocean text-lg uppercase tracking-tight">Adresa</h4>
-                <p className="text-gray-500 font-medium">Bulevar Kralja Aleksandra 123,<br />11000 Beograd, Srbija</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-5">
-              <div className="w-12 h-12 bg-aqua/10 flex items-center justify-center rounded-2xl text-aqua shrink-0 shadow-sm">
-                <Phone size={24} />
-              </div>
-              <div>
-                <h4 className="font-bold text-ocean text-lg uppercase tracking-tight">Telefon</h4>
-                <p className="text-gray-500 font-medium">+381 60 123 4567</p>
+                <p className="text-gray-500 font-medium">11000 Beograd, Srbija</p>
               </div>
             </div>
 

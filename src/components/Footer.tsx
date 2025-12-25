@@ -9,11 +9,10 @@ export default function Footer() {
           {/* LOGO / ABOUT */}
           <div>
             <h3 className="text-xl font-bold mb-3">
-              RDB Diving Club
+              RK Ronilačka družina
             </h3>
             <p className="text-sm text-white/80 leading-relaxed">
-              Explore the underwater world with experienced instructors
-              and unforgettable dive trips across the Adriatic and beyond.
+              Otkrijte magiju podvodnog sveta. Uz stručno vođstvo naših instruktora, vodimo vas na nezaboravne ronilačke avanture na Jadranu i širom sveta.
             </p>
           </div>
 
@@ -33,8 +32,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-white/80">
               <li>Email: ronilackadruzina@gmail.com</li>
-              <li>Phone: +381 60 123 4567</li>
-              <li>Serbia / Belgrade</li>
+              <li>Beograd, Srbija</li>
             </ul>
           </div>
 
