@@ -141,7 +141,7 @@ export default function Contact() {
               </div>
               <div>
                 <h4 className="font-bold text-ocean text-lg uppercase tracking-tight">Email</h4>
-                <p className="text-gray-500 font-medium">info@ronilackadruzina.rs</p>
+                <p className="text-gray-500 font-medium">ronilackadruzina@gmail.com</p>
               </div>
             </div>
           </div>
