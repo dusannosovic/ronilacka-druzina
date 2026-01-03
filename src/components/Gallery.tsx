@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import { MoreHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
+// FIX: Navigation and Pagination must come from swiper/modules
+import { Navigation, Pagination } from "swiper/modules"; 
+// FIX: Remove Navigation from lucide-react
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
-import logo from "../assets/logo.png";
-import { api } from "../lib/api"; // tvoja axios instanca
+import { api } from "../lib/api";
+import type { GalleryPost } from "../types/Gallery";
+import GalleryCard from "./GalleryCard";
 
-// Import Swiper stilova
+// Import Swiper styles
 // @ts-ignore
 import "swiper/css";
 // @ts-ignore
@@ -14,8 +17,7 @@ import "swiper/css/navigation";
 // @ts-ignore
 import "swiper/css/pagination";
 
-import type { GalleryPost } from "../types/Gallery";
-
+// Define the URL here
 const STRAPI_URL = import.meta.env.VITE_CMS_URL || "http://localhost:1337";
 
 export default function Gallery() {
@@ -23,7 +25,6 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Pozivamo /galleries i obavezno dodajemo populate=images
     api.get<{ data: GalleryPost[] }>("/galleries?populate=images")
       .then((res) => {
         setPosts(res.data.data);
@@ -32,7 +33,11 @@ export default function Gallery() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="py-20 text-center animate-pulse uppercase font-black text-ocean">Učitavanje galerije...</div>;
+  if (loading) return (
+    <div className="py-20 text-center animate-pulse uppercase font-black text-ocean">
+      Učitavanje galerije...
+    </div>
+  );
 
   return (
     <section id="galerija" className="w-full py-10 bg-ocean-light px-6 md:px-12 lg:px-24">
@@ -61,10 +66,11 @@ export default function Gallery() {
         </div>
 
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Pagination]} // Using the modules from swiper/modules
           navigation={{ prevEl: ".gallery-prev", nextEl: ".gallery-next" }}
           spaceBetween={30}
           slidesPerView={1}
+          autoHeight={true} 
           breakpoints={{
             640: { slidesPerView: 1 },
             1024: { slidesPerView: 2 },
@@ -73,96 +79,9 @@ export default function Gallery() {
           className="pb-10"
         >
           {posts.map((post) => (
-            <SwiperSlide key={post.id}>
-              <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-card border border-gray-100 flex flex-col h-full">
-                
-                {/* TOP BAR */}
-<div className="p-5 flex items-center justify-between border-b border-gray-50">
-  <div className="flex items-center gap-3">
-    {/* TVOJ LOGO UMESTO RD */}
-    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm bg-white flex items-center justify-center">
-      <img 
-        src={logo} 
-        alt="Ronilačka Družina" 
-        className="w-full h-full object-contain p-1" 
-      />
-    </div>
-    
-    <div className="flex flex-col">
-      <span className="text-sm font-black text-ocean leading-none">Ronilačka Družina</span>
-      <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{post.location}</span>
-    </div>
-  </div>
-  <MoreHorizontal size={20} className="text-gray-300" />
-</div>
-
-                {/* UNUTRAŠNJI SLIDER (Slike iz Strapi-ja) */}
-                <div className="relative aspect-square overflow-hidden bg-gray-100 group/inner"> 
-                  <Swiper
-                    modules={[Navigation, Pagination]}
-                    navigation={true} 
-                    pagination={{ clickable: true }}
-                    className="h-full w-full inner-swiper"
-                  >
-                    {/* Proveravamo da li images postoji i mapiramo ih */}
-{/* UNUTRAŠNJI SLIDER */}
-{post.images?.map((img) => {
-  // Proveravamo da li je URL relativan ili apsolutan
-  const imagePath = img.url.startsWith("http") 
-    ? img.url 
-    : `${STRAPI_URL}${img.url}`;
-
-  return (
-    <SwiperSlide key={img.id}>
-      <img 
-        src={imagePath} 
-        alt={img.alternativeText || "Diving Gallery"} 
-        className="w-full h-full object-cover" 
-        // DODAJ OVO ZA DEBUG:
-        onError={(e) => console.log("Slika nije učitana na putanji:", imagePath)}
-      />
-    </SwiperSlide>
-  );
-})}
-                  </Swiper>
-
-                  {/* Tvoj stil za strelice ostaje isti kao pre */}
-                  <style>{`
-                    .inner-swiper .swiper-button-next,
-                    .inner-swiper .swiper-button-prev {
-                      background: rgba(255, 255, 255, 0.85);
-                      backdrop-filter: blur(8px);
-                      width: 32px;
-                      height: 32px;
-                      border-radius: 50%;
-                      color: #0B2C5F;
-                      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-                      transition: all 0.2s ease-in-out;
-                      opacity: 0;
-                    }
-                    .group\/inner:hover .inner-swiper .swiper-button-next,
-                    .group\/inner:hover .inner-swiper .swiper-button-prev {
-                      opacity: 1;
-                    }
-                    .inner-swiper .swiper-button-next:after,
-                    .inner-swiper .swiper-button-prev:after {
-                      font-size: 12px !important;
-                      font-weight: 900;
-                    }
-                    .inner-swiper .swiper-pagination-bullet-active {
-                      background: #4FD1C5 !important;
-                    }
-                  `}</style>
-                </div>
-
-                <div className="p-6 flex-grow">
-                  <div className="text-sm leading-relaxed line-clamp-2">
-                    <span className="text-gray-600 font-medium">
-                      {post.caption}
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <SwiperSlide key={post.id} className="h-auto">
+              {/* FIX: Added STRAPI_URL={STRAPI_URL} here */}
+              <GalleryCard post={post} STRAPI_URL={STRAPI_URL} />
             </SwiperSlide>
           ))}
         </Swiper>
