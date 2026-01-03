@@ -11,6 +11,7 @@ export default function Header() {
   const navLinks = [
     { name: "Početna", link: "/" },
     { name: "O nama", link: "/#o-klubu" },
+    { name: "Podvodni radovi", link: "/#radovi" },
     { name: "Kursevi", link: "/#kursevi" },
     { name: "Zaroni", link: "/#zaroni" },
     { name: "Galerija", link: "/#galerija" },

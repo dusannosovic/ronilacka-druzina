@@ -12,6 +12,7 @@ import CourseDetails from "./components/CourseDetails";
 import PolitikaPrivatnosti from './components/PrivacyPolicy';
 import UsloviKoriscenja from './components/TermsOfUse';
 import { useEffect } from "react";
+import UnderwaterWorks from "./components/UnderwaterWorks";
 // Import nove stranice
 
 
@@ -51,6 +52,7 @@ export default function App() {
             <>
               <Hero />
               <About />
+              <UnderwaterWorks />
               <Program />
               <DiveTrips />
               <Gallery />
