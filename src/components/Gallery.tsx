@@ -60,21 +60,21 @@ export default function Gallery() {
           </div>
         </div>
 
-        <Swiper
-          modules={[Navigation]}
-          navigation={{ prevEl: ".gallery-prev", nextEl: ".gallery-next" }}
-          spaceBetween={30}
-          slidesPerView={1}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            1024: { slidesPerView: 2 },
-            1280: { slidesPerView: 3 },
-          }}
-          className="pb-10"
-        >
-          {posts.map((post) => (
-            <SwiperSlide key={post.id}>
-              <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-card border border-gray-100 flex flex-col h-full">
+<Swiper
+  modules={[Navigation]}
+  navigation={{ prevEl: ".gallery-prev", nextEl: ".gallery-next" }}
+  spaceBetween={30}
+  slidesPerView={1}
+  breakpoints={{
+    640: { slidesPerView: 1 },
+    1024: { slidesPerView: 2 },
+    1280: { slidesPerView: 3 },
+  }}
+  className="pb-10 !h-auto" // Dodato !h-auto
+>
+  {posts.map((post) => (
+    <SwiperSlide key={post.id} className="h-auto"> {/* Dodato h-auto na slide */}
+      <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-card border border-gray-100 flex flex-col h-full">
                 
                 {/* TOP BAR */}
 <div className="p-5 flex items-center justify-between border-b border-gray-50">
@@ -155,13 +155,13 @@ export default function Gallery() {
                   `}</style>
                 </div>
 
-                <div className="p-6 flex-grow">
-                  <div className="text-sm leading-relaxed line-clamp-2">
-                    <span className="text-gray-600 font-medium">
-                      {post.caption}
-                    </span>
-                  </div>
-                </div>
+<div className="p-6 flex-grow overflow-hidden"> {/* overflow-hidden je sigurnosni ventil */}
+  <div className="text-sm leading-relaxed break-words"> {/* OVO JE KLJUČNA KLASA: break-words */}
+    <span className="text-gray-600 font-medium whitespace-pre-wrap">
+      {post.caption}
+    </span>
+  </div>
+</div>
               </div>
             </SwiperSlide>
           ))}
