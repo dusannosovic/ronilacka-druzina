@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { MoreHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
+import { MoreHorizontal, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { api } from "../lib/api"; // tvoja axios instanca
+import { useNavigate } from "react-router-dom";
 
 // Import Swiper stilova
 // @ts-ignore
@@ -19,6 +20,8 @@ import type { GalleryPost } from "../types/Gallery";
 const STRAPI_URL = import.meta.env.VITE_CMS_URL || "http://localhost:1337";
 
 export default function Gallery() {
+  const navigate = useNavigate();
+
   const [posts, setPosts] = useState<GalleryPost[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,34 +33,49 @@ useEffect(() => {
       .catch((err) => console.error("Greška pri učitavanju galerije:", err))
       .finally(() => setLoading(false));
   }, []);
-  
+
   if (loading) return <div className="py-20 text-center animate-pulse uppercase font-black text-ocean">Učitavanje galerije...</div>;
 
   return (
     <section id="galerija" className="w-full py-10 bg-ocean-light px-6 md:px-12 lg:px-24">
       <div className="w-full relative">
         
-        {/* HEADER SEKCIJE */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-          <div>
-            <h2 className="text-5xl font-black text-ocean uppercase tracking-tighter">
-              Galerija avantura
-            </h2>
-            <div className="flex items-center gap-2 text-aqua mb-2">
-              <FaInstagram size={20} />
-              <span className="font-bold tracking-[0.3em] uppercase text-[10px]">Social Feed</span>
-            </div>
-          </div>
-          
-          <div className="flex gap-3 mb-2">
-            <button className="gallery-prev w-12 h-12 rounded-full border-2 border-ocean flex items-center justify-center text-ocean hover:bg-ocean hover:text-white transition-all cursor-pointer">
-              <ChevronLeft size={24} />
-            </button>
-            <button className="gallery-next w-12 h-12 rounded-full border-2 border-ocean flex items-center justify-center text-ocean hover:bg-ocean hover:text-white transition-all cursor-pointer">
-              <ChevronRight size={24} />
-            </button>
-          </div>
-        </div>
+{/* HEADER SEKCIJE */}
+<div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+  
+  {/* NASLOV I SUBTITLE */}
+  <div className="text-left">
+    <h2 className="text-5xl md:text-6xl font-black text-ocean uppercase tracking-tighter leading-none mb-4">
+      Galerija <span className="text-aqua">avantura</span>
+    </h2>
+  </div>
+
+  {/* AKCIJA: Dugme i Strelice */}
+  <div className="flex items-center gap-4 w-full md:w-auto">
+    
+    {/* NOVO ISTAKNUTO DUGME - Dizajn kao "Prijavi se" */}
+    <button 
+      onClick={() => {
+        navigate('/galerija');
+        window.scrollTo(0, 0);
+      }}
+      className="flex-grow md:flex-grow-0 bg-ocean text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-aqua hover:text-ocean transition-all duration-300 shadow-xl shadow-ocean/10 flex items-center justify-center gap-3 group"
+    >
+      Istraži kompletnu galeriju
+      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+    </button>
+
+    {/* STRELICE ZA SLIDER */}
+    <div className="flex gap-2">
+      <button className="gallery-prev w-12 h-14 rounded-2xl border-2 border-ocean/10 flex items-center justify-center text-ocean hover:bg-ocean hover:text-white transition-all cursor-pointer">
+        <ChevronLeft size={24} />
+      </button>
+      <button className="gallery-next w-12 h-14 rounded-2xl border-2 border-ocean/10 flex items-center justify-center text-ocean hover:bg-ocean hover:text-white transition-all cursor-pointer">
+        <ChevronRight size={24} />
+      </button>
+    </div>
+  </div>
+</div>
 
 <Swiper
   modules={[Navigation]}

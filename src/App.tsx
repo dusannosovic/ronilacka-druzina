@@ -13,6 +13,7 @@ import PolitikaPrivatnosti from './components/PrivacyPolicy';
 import UsloviKoriscenja from './components/TermsOfUse';
 import { useEffect } from "react";
 import UnderwaterWorks from "./components/UnderwaterWorks";
+import GalleryPage from "./components/GalleryPage";
 // Import nove stranice
 
 
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/politika-privatnosti" element={<PolitikaPrivatnosti />} />
 
           <Route path="/uslovi-koriscenja" element={<UsloviKoriscenja />} />
+          <Route path="/galerija" element={<GalleryPage />} />
         </Routes>
 
         <Footer />
