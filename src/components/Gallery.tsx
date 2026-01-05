@@ -22,16 +22,15 @@ export default function Gallery() {
   const [posts, setPosts] = useState<GalleryPost[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Pozivamo /galleries i obavezno dodajemo populate=images
-    api.get<{ data: GalleryPost[] }>("/galleries?populate=images")
+useEffect(() => {
+    api.get<{ data: GalleryPost[] }>("/galleries?populate=images&sort=createdAt:desc")
       .then((res) => {
         setPosts(res.data.data);
       })
       .catch((err) => console.error("Greška pri učitavanju galerije:", err))
       .finally(() => setLoading(false));
   }, []);
-
+  
   if (loading) return <div className="py-20 text-center animate-pulse uppercase font-black text-ocean">Učitavanje galerije...</div>;
 
   return (
