@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { MoreHorizontal, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { FaInstagram } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { api } from "../lib/api"; // tvoja axios instanca
 import { useNavigate } from "react-router-dom";
