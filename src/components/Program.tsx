@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { Calendar, Clock, Award, ChevronLeft, ChevronRight, GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../lib/api"; // Osiguraj da je putanja tačna
 
 // Swiper stilovi
 // @ts-ignore
@@ -13,38 +11,15 @@ import "swiper/css/navigation";
 
 import type { Program } from "../types/Program";
 
-export default function Programs() {
+// Primamo 'data' kao prop
+export default function Programs({ data }: { data: Program[] }) {
   const navigate = useNavigate();
-  const [programs, setPrograms] = useState<Program[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Pozivamo Strapi API za programe
-    api.get<{ data: Program[] }>("/programs")
-      .then((res) => {
-        setPrograms(res.data.data);
-      })
-      .catch((err) => {
-        console.error("Greška pri učitavanju programa:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="py-24 text-center font-bold text-ocean uppercase tracking-widest animate-pulse">
-        Učitavanje akademije...
-      </section>
-    );
-  }
-
-  // Ako nema unetih programa u Strapi-ju
-  if (programs.length === 0) {
-    return null; // Ili neka poruka da trenutno nema kurseva
-  }
+  // 1. KLJUČNO: Ako nema podataka u Strapi-ju, sekcija se uopšte ne renderuje
+  if (!data || data.length === 0) return null;
 
   return (
-    <section id="kursevi" className="w-full bg-white py-4 px-6 md:px-12 lg:px-24">
+    <section id="programi" className="w-full bg-white py-16 px-6 md:px-12 lg:px-24 scroll-mt-24">
       <div className="w-full relative">
         
         {/* HEADER SEKCIJE */}
@@ -85,7 +60,8 @@ export default function Programs() {
           }}
           className="!pb-10"
         >
-          {programs.map((p) => (
+          {/* 2. KORISTIMO 'data' PROP direktno */}
+          {data.map((p) => (
             <SwiperSlide key={p.id} className="h-auto">
               <div className="group bg-ocean-light rounded-[2.5rem] p-8 h-full border border-transparent hover:border-aqua hover:bg-white hover:shadow-2xl transition-all duration-500 flex flex-col">
 
@@ -125,10 +101,11 @@ export default function Programs() {
 
                 <button 
                   onClick={() => {
-                    navigate(`/program/${p.documentId}`, { state: { programData: p } }); // Šaljemo ceo objekat
+                    // 3. Prolazak parametara kroz navigaciju
+                    navigate(`/program/${p.documentId}`, { state: { programData: p } });
                     window.scrollTo(0, 0);
                   }}
-                className="w-full bg-white text-ocean border-2 border-ocean py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] group-hover:bg-ocean group-hover:text-white transition-all duration-300"
+                  className="w-full bg-white text-ocean border-2 border-ocean py-4 rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-[0.2em] group-hover:bg-ocean group-hover:text-white transition-all duration-300"
                 >
                   Detalji Kursa
                 </button>

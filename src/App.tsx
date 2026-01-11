@@ -11,9 +11,10 @@ import BookingPage from "./components/BookingPage";
 import CourseDetails from "./components/CourseDetails";
 import PolitikaPrivatnosti from './components/PrivacyPolicy';
 import UsloviKoriscenja from './components/TermsOfUse';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UnderwaterWorks from "./components/UnderwaterWorks";
 import GalleryPage from "./components/GalleryPage";
+import { api } from "./lib/api";
 // Import nove stranice
 
 
@@ -42,11 +43,39 @@ function ScrollManager() {
 }
 
 export default function App() {
+  const [trips, setTrips] = useState<any[]>([]);
+  const [programs, setPrograms] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tripsRes, programsRes] = await Promise.all([
+          api.get("/dive-trips?populate=*"),
+          api.get("/programs")
+        ]);
+        setTrips(tripsRes.data.data || []);
+        setPrograms(programsRes.data.data || []);
+      } catch (err) {
+        console.error("Greška pri učitavanju:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const hasTrips = trips.length > 0;
+  const hasPrograms = programs.length > 0;
+
   return (
     <BrowserRouter>
       <ScrollManager />
       <main className="w-full bg-ocean-light min-h-screen">
-        <Header />
+      <Header 
+        hasTrips={trips.length > 0} 
+        hasPrograms={programs.length > 0} 
+      />
 
         <Routes>
           <Route path="/" element={
@@ -54,8 +83,8 @@ export default function App() {
               <Hero />
               <About />
               <UnderwaterWorks />
-              <Program />
-              <DiveTrips />
+              {hasPrograms && <Program data={programs} />}
+              {hasTrips && <DiveTrips data={trips} />}
               <Gallery />
               <Contact />
             </>
